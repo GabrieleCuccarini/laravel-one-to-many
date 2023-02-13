@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Project;
+use App\Models\Type;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
@@ -85,6 +86,9 @@ class ProjectController extends Controller {
     public function edit($id)
     {
         $project = project::findOrFail($id);
+        // recupero un array con TUTTI i types del db
+        // $types = Type::all();
+
         return view('admin.projects.edit',compact('project'));
     }
 
@@ -103,17 +107,13 @@ class ProjectController extends Controller {
         $project =  Project::findOrFail($id);  
         if (key_exists("cover_img", $data)){   
             $path = Storage::put("projects", $data["cover_img"]);
-            $project->update([
-                ...$data,
-                "user_id" =>Auth::id(),
-                "cover_img"=>$path ?? $project->cover_img,
-            ]);
-        } else {
-            $project->update([
-                ...$data,
-                "user_id" =>Auth::id(),
-            ]);
+            Storage::delete($project->cover_img);
         }
+        $project->update([
+            ...$data,
+            "user_id" =>Auth::id(),
+            "cover_img"=>$path ?? $project->cover_img,
+        ]);
         return redirect()->route('admin.projects.show', $id);
     }
 
