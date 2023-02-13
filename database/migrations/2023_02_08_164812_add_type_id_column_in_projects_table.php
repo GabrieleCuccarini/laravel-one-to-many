@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger("type_id")->nullable();
             $table->foreign("type_id")
                 ->references("id")
-                ->on("tpyes");
+                ->on("types");
         });
     }
 

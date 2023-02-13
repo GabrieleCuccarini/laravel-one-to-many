@@ -36,7 +36,7 @@
 
         <div class="mb-3">
             <label class="form-label">Tipologia</label>
-            <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+            <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example" name='type_id'>
                 <option selected>Scegli la tipologia</option>
                 <option value="1">HTML</option>
                 <option value="2">JS</option>

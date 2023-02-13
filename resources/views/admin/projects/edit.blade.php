@@ -29,12 +29,15 @@
         
         <div class="mb-3">
             <label class="form-label">Immagine</label>
-            <input type="file" class="form-control @error('cover_img') is-invalid @enderror" name="cover_img" value="{{ old('cover_img', $project->cover_img) }}">
+            <input type="file" class="form-control @error('cover_img') is-invalid @enderror"
+            name="cover_img" value="{{ old('cover_img', $project->cover_img) }}">
             @error('cover_img')
             <div class="invalid-feedback">
                 {{ $message }}
             </div>
             @enderror
+
+            <img src="{{ asset('storage/' . $project->cover_img) }}" alt="" class="img-thumbnail">
         </div>
         
         <div class="mb-3">
@@ -49,11 +52,17 @@
 
         <div class="mb-3">
             <label class="form-label">Tipologia</label>
-            <input type="text" class="form-control @error('type_id') is-invalid @enderror" name="type_id" value="{{ old('type_id', $project->type_id) }}">
+            <select class="form-select form-select-sm mb-3" aria-label="form-select-sm" name='type_id'>
+                <option selected value=''>Scegli la tipologia</option>
+                <option value="1">HTML</option>
+                <option value="2">JS</option>
+                <option value="3">VITE/VUE</option>
+                <option value="4">LARAVEL</option>
+            </select>
             @error('type_id')
-                <div class="invalid-feedback">
+            <div class="invalid-feedback">
                 {{ $message }}
-                </div>
+            </div>
             @enderror
         </div>
 

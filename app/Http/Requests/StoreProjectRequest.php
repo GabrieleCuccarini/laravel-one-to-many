@@ -27,9 +27,9 @@ class StoreProjectRequest extends FormRequest
         return [
             "name" => "required|min:5|max:255",
             "description" => "required|string",
-            "cover_img" => "file",
+            "cover_img" => "image",
             "link" => "required|string",
-            "type_id" => ""
+            "type_id" => "nullable|exists:types,id"
         ];
     }
     
@@ -41,6 +41,7 @@ class StoreProjectRequest extends FormRequest
             "description.required" => "Il progetto deve avere un contenuto",
             "link.required" => "Il progetto deve avere un link github",
             "link.string" => "Il campo 'Link' deve essere una stringa",
+            "type_id.exists" => "Deve esistere un ID all'interno di types" 
         ];
     }
 }

@@ -102,13 +102,19 @@ class ProjectController extends Controller {
         //FUNZIONAMENTO CON IMMAGINI IN UPLOAD
         $project =  Project::findOrFail($id);  
         if (key_exists("cover_img", $data)){   
+            $path = Storage::put("projects", $data["cover_img"]);
             $project->update([
                 ...$data,
                 "user_id" =>Auth::id(),
                 "cover_img"=>$path ?? $project->cover_img,
             ]);
-        return redirect()->route('admin.projects.show', $id);
+        } else {
+            $project->update([
+                ...$data,
+                "user_id" =>Auth::id(),
+            ]);
         }
+        return redirect()->route('admin.projects.show', $id);
     }
 
     /**
